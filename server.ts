@@ -1,12 +1,13 @@
 import { createServer } from "node:http";
-import next from "next";
-import { Server } from "socket.io";
+import { addMessage, getMessages } from "@/app/action";
 import type {
   ClientToServerEvents,
   InterServerEvents,
   ServerToClientEvents,
   SocketData,
 } from "@/lib/types";
+import next from "next";
+import { Server } from "socket.io";
 
 const dev = process.env.NODE_ENV !== "production";
 const hostname = "localhost";
@@ -25,11 +26,18 @@ app.prepare().then(() => {
     SocketData
   >(httpServer);
 
-  io.on("connection", socket => {
+  io.on("connection", async socket => {
     console.log("A user connected!");
-    socket.on("message", (msg: string) => {
-      console.log("Message received:", msg);
-      io.emit("message", msg);
+
+    socket.emit("messagesHistory", await getMessages());
+
+    socket.on("message", async (newMessage: string) => {
+      console.log("Message received:", newMessage);
+
+      await addMessage(newMessage);
+      const updatedMessages = await getMessages();
+
+      io.emit("messagesHistory", updatedMessages);
     });
   });
 

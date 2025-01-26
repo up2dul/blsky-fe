@@ -1,4 +1,4 @@
-import { clsx, type ClassValue } from "clsx";
+import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
 /**
@@ -13,31 +13,27 @@ import { twMerge } from "tailwind-merge";
  * // Returns: "px-2 py-1 bg-red"
  * ```
  */
-export function cn(...inputs: ClassValue[]): string {
+export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
 /**
- * Generates a formatted timestamp string combining date and time in Indonesian locale.
- * The date format includes the full weekday name, numeric year, full month name, and 2-digit day,
- * followed by the local time representation.
- *
- * @returns {string} A string containing the formatted date and time
+ * Converts an ISO timestamp string to a formatted date and time string in Indonesian locale
+ * @param timestamp - The ISO 8601 timestamp string to convert
+ * @returns A string containing the formatted date and time in "DD Month YYYY - HH:MM AM/PM" format
  * @example
- * // Returns something like: "25 September 2023 - 10:30 PM"
+ * timestampToText("2023-10-20T15:30:00Z")
+ * // Returns "20 Oktober 2023 - 10:30 PM"
  */
-export function generateTimestamp(): string {
-  return (
-    new Date().toLocaleDateString("id-ID", {
-      year: "numeric",
-      month: "long",
-      day: "2-digit",
-    }) +
-    " - " +
-    new Date().toLocaleTimeString("id-ID", {
-      hour: "numeric",
-      minute: "numeric",
-      hour12: true,
-    })
-  );
+export function timestampToText(timestamp: string) {
+  const date = new Date(timestamp);
+  return `${date.toLocaleDateString("id-ID", {
+    year: "numeric",
+    month: "long",
+    day: "2-digit",
+  })} - ${date.toLocaleTimeString("id-ID", {
+    hour: "numeric",
+    minute: "numeric",
+    hour12: true,
+  })}`;
 }

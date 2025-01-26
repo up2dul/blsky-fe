@@ -1,25 +1,22 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { socket } from "@/socket";
-import type { Message } from "@/lib/types";
-import { generateTimestamp } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import type { Message } from "@/lib/types";
+import { timestampToText } from "@/lib/utils";
+import { socket } from "@/socket";
+import { useEffect, useState } from "react";
 
 export default function Home() {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState<Message[]>([]);
 
   useEffect(() => {
-    socket.on("message", (message: string) => {
-      setMessages(prevMessages => [
-        ...prevMessages,
-        { id: Date.now().toString(), message, timestamp: generateTimestamp() },
-      ]);
+    socket.on("messagesHistory", (messages: Message[]) => {
+      setMessages(messages);
     });
     return () => {
-      socket.off("message", () => {});
+      socket.off("messagesHistory", () => {});
     };
   }, []);
 
@@ -42,8 +39,10 @@ export default function Home() {
             key={msg.id}
             className="rounded-sm bg-slate-800 p-2 text-slate-50"
           >
-            {msg.message} <br />
-            <span className="text-xs text-slate-500">{msg.timestamp}</span>
+            {msg.content} <br />
+            <span className="text-xs text-slate-500">
+              {timestampToText(msg.timestamp)}
+            </span>
           </li>
         ))}
       </ul>

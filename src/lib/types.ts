@@ -1,5 +1,6 @@
 export interface ServerToClientEvents {
   message: (message: string) => void;
+  messagesHistory: (messages: Message[]) => void;
   noArg: () => void;
   basicEmit: (a: number, b: string, c: Buffer) => void;
   withAck: (d: string, callback: (e: number) => void) => void;
@@ -20,6 +21,6 @@ export interface SocketData {
 
 export interface Message {
   id: string;
-  message: string;
+  content: string;
   timestamp: string;
 }
