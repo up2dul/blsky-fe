@@ -1,6 +1,7 @@
 export interface ServerToClientEvents {
   message: (message: string) => void;
   messagesHistory: (messages: Message[]) => void;
+  messagesReset: () => void;
   noArg: () => void;
   basicEmit: (a: number, b: string, c: Buffer) => void;
   withAck: (d: string, callback: (e: number) => void) => void;
@@ -8,6 +9,7 @@ export interface ServerToClientEvents {
 
 export interface ClientToServerEvents {
   message: (message: string) => void;
+  messagesReset: () => void;
 }
 
 export interface InterServerEvents {

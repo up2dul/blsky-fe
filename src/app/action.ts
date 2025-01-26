@@ -12,3 +12,7 @@ export async function getMessages() {
 export async function addMessage(message: string) {
   await sql`INSERT INTO message (content) VALUES (${message})`;
 }
+
+export async function deleteAllMessages() {
+  await sql`DELETE FROM message`;
+}

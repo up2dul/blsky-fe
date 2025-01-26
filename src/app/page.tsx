@@ -22,10 +22,14 @@ export default function Home() {
     };
   }, []);
 
-  const sendMessage = (e: React.FormEvent<HTMLFormElement>) => {
+  const sendMessageHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     socket.emit("message", message);
     setMessage("");
+  };
+
+  const resetMessagesHandler = () => {
+    socket.emit("messagesReset");
   };
 
   return (
@@ -41,7 +45,7 @@ export default function Home() {
             No messages yet. Send a message to start.
           </li>
         )}
-        {messages.map((msg) => (
+        {messages.map(msg => (
           <li
             key={msg.id}
             className="rounded-sm bg-slate-800 p-2 text-slate-50"
@@ -55,7 +59,7 @@ export default function Home() {
       </ul>
 
       <form
-        onSubmit={sendMessage}
+        onSubmit={sendMessageHandler}
         className="flex gap-2 p-2 pb-3 absolute bottom-0 w-full bg-slate-800 rounded-t-sm border-t-4 border-slate-950"
       >
         <Input
@@ -63,13 +67,23 @@ export default function Home() {
           placeholder={
             isLoadingMessages ? "Loading..." : "Type a message here..."
           }
-          onChange={(e) => setMessage(e.target.value)}
+          onChange={e => setMessage(e.target.value)}
           disabled={isLoadingMessages}
         />
         <Button type="submit" disabled={message.length < 1}>
           Send
         </Button>
       </form>
+
+      {messages.length > 0 && (
+        <Button
+          className="fixed bottom-20 right-4 md:right-12 lg:right-24"
+          variant="destructive"
+          onClick={resetMessagesHandler}
+        >
+          Reset chat
+        </Button>
+      )}
     </main>
   );
 }

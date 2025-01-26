@@ -1,5 +1,5 @@
 import { createServer } from "node:http";
-import { addMessage, getMessages } from "@/app/action";
+import { addMessage, deleteAllMessages, getMessages } from "@/app/action";
 import type {
   ClientToServerEvents,
   InterServerEvents,
@@ -35,6 +35,15 @@ app.prepare().then(() => {
       console.log("Message received:", newMessage);
 
       await addMessage(newMessage);
+      const updatedMessages = await getMessages();
+
+      io.emit("messagesHistory", updatedMessages);
+    });
+
+    socket.on("messagesReset", async () => {
+      console.log("Resetting messages");
+
+      await deleteAllMessages();
       const updatedMessages = await getMessages();
 
       io.emit("messagesHistory", updatedMessages);
