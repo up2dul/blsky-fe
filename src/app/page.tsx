@@ -13,7 +13,7 @@ export default function Home() {
 
   useEffect(() => {
     socket.on("message", (message: string) => {
-      setMessages((prevMessages) => [
+      setMessages(prevMessages => [
         ...prevMessages,
         { id: Date.now().toString(), message, timestamp: generateTimestamp() },
       ]);
@@ -37,7 +37,7 @@ export default function Home() {
             No messages yet. Send a message to start.
           </li>
         )}
-        {messages.map((msg) => (
+        {messages.map(msg => (
           <li
             key={msg.id}
             className="rounded-sm bg-slate-800 p-2 text-slate-50"
@@ -54,7 +54,7 @@ export default function Home() {
         <Input
           value={message}
           placeholder="Type a message here..."
-          onChange={(e) => setMessage(e.target.value)}
+          onChange={e => setMessage(e.target.value)}
         />
         <Button type="submit" disabled={message.length < 1}>
           Send

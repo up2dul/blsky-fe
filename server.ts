@@ -25,7 +25,7 @@ app.prepare().then(() => {
     SocketData
   >(httpServer);
 
-  io.on("connection", (socket) => {
+  io.on("connection", socket => {
     console.log("A user connected!");
     socket.on("message", (msg: string) => {
       console.log("Message received:", msg);
@@ -34,7 +34,7 @@ app.prepare().then(() => {
   });
 
   httpServer
-    .once("error", (err) => {
+    .once("error", err => {
       console.error(err);
       process.exit(1);
     })
