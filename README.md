@@ -45,7 +45,14 @@ pnpm install
 ```bash
 cp .env.example .env
 ```
-And replace the `DATABASE_URL` value with your own.
+
+4. Replace the `DATABASE_URL` value with your own.
+
+5. Run the database migration:
+
+```bash
+pnpm db:migrate
+```
 
 ### Usage
 
