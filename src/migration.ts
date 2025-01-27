@@ -3,10 +3,10 @@ import { db } from "@/lib/db";
 
 async function migrate() {
   await db.schema
-    .createTable("message")
-    .addColumn("id", "integer", (col) => col.primaryKey())
+    .createTable("messages")
+    .addColumn("id", "integer", (col) => col.primaryKey().generatedAlwaysAsIdentity())
     .addColumn("content", "text")
-    .addColumn("timestamp", "date", (col) =>
+    .addColumn("timestamp", "timestamp", (col) =>
       col.defaultTo(sql`now()`).notNull()
     )
     .execute();
@@ -15,6 +15,7 @@ async function migrate() {
 migrate()
   .then(() => {
     console.log("Migration successful!");
+    process.exit(0);
   })
   .catch((err) => {
     console.error(err);

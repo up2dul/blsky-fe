@@ -47,12 +47,12 @@ export default function Home() {
         )}
         {messages.map(msg => (
           <li
-            key={msg.id}
+            key={msg.id as unknown as string}
             className="rounded-sm bg-slate-800 p-2 text-slate-50"
           >
             {msg.content} <br />
             <span className="text-xs text-slate-500">
-              {timestampToText(msg.timestamp)}
+              {timestampToText(msg.timestamp as unknown as string)}
             </span>
           </li>
         ))}

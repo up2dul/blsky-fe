@@ -30,7 +30,7 @@ export interface Message {
 }
 
 export interface Database {
-  message: SelectMessage;
+  messages: SelectMessage;
 }
 
 export type SelectMessage = Selectable<Message>;
