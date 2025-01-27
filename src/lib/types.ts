@@ -1,3 +1,5 @@
+import type { ColumnType, Generated, Insertable, Selectable } from "kysely";
+
 export interface ServerToClientEvents {
   message: (message: string) => void;
   messagesHistory: (messages: Message[]) => void;
@@ -22,7 +24,14 @@ export interface SocketData {
 }
 
 export interface Message {
-  id: string;
+  id?: Generated<number>;
   content: string;
-  timestamp: string;
+  timestamp?: Generated<ColumnType<Date, Date | string, Date | string>>;
 }
+
+export interface Database {
+  message: SelectMessage;
+}
+
+export type SelectMessage = Selectable<Message>;
+export type NewMessage = Insertable<Message>;

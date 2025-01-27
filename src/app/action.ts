@@ -1,18 +1,19 @@
 "use server";
 
-import type { Message } from "@/lib/types";
-import { neon } from "@neondatabase/serverless";
-
-const sql = neon(process.env.DATABASE_URL);
+import { db } from "@/lib/db";
 
 export async function getMessages() {
-  return (await sql`SELECT * FROM message`) as Message[];
+  return await db.selectFrom("message").selectAll().execute();
 }
 
 export async function addMessage(message: string) {
-  await sql`INSERT INTO message (content) VALUES (${message})`;
+  await db
+    .insertInto("message")
+    .columns(["content"])
+    .values({ content: message })
+    .executeTakeFirst();
 }
 
 export async function deleteAllMessages() {
-  await sql`DELETE FROM message`;
+  await db.deleteFrom("message").executeTakeFirst();
 }
