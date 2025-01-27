@@ -1,36 +1,58 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Simple Websocket App
+
+![Screenshot](./public/screenshot.png)
+
+> ℹ️ This simple application was created for test purposes at the [Blsky](https://blsky.tech) company.
+
+## Tech Stack
+Some of the technologies used in this project:
+- [Next.js](https://nextjs.org) — The React Framework
+- [Socket.io](https://socket.io) — WebSocket library
+- [PostgreSQL](https://www.postgresql.org) — A relational database
+- [Kysely](https://github.com/koskimas/kysely) — A type-safe TypeScript SQL query builder
+- [Tailwind CSS](https://tailwindcss.com) — A utility-first CSS framework
+- [TypeScript](https://typescriptlang.org) — A typed superset of JavaScript
+- [Biome](https://biomejs.dev) - Code formatter and linter
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 18.x or higher
+- PostgreSQL 14.x or higher
+- [pnpm](https://pnpm.io) (optional but recommended)
+
+### Installation
+
+1. Clone the repository:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/up2dul/blsky-fe.git
+
+# or if you prefer SSH
+git clone git@github.com:up2dul/blsky-fe.git
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Install the dependencies:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+cd blsky-fe
+pnpm install
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+3. Create a `.env` file based on the `.env.example` file:
 
-## Learn More
+```bash
+cp .env.example .env
+```
+And replace the `DATABASE_URL` value with your own.
 
-To learn more about Next.js, take a look at the following resources:
+### Usage
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Start the development server:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+pnpm dev
+```
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+2. Open [http://localhost:3000](http://localhost:3000) in your browser.
