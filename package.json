@@ -2,7 +2,6 @@
   "name": "blsky-fe",
   "version": "0.1.0",
   "private": true,
-  "type": "module",
   "scripts": {
     "dev": "tsx watch --env-file=.env ./server.ts",
     "dev:next": "next dev",
@@ -11,15 +10,17 @@
     "start:next": "next start",
     "lint": "biome lint .",
     "format": "biome format --write .",
-    "check": "biome check --write ."
+    "check": "biome check --write .",
+    "db:migrate": "tsx --env-file=.env ./src/migration.ts"
   },
   "dependencies": {
-    "@neondatabase/serverless": "^0.10.4",
     "@radix-ui/react-slot": "^1.1.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "kysely": "^0.27.5",
     "lucide-react": "^0.474.0",
     "next": "15.1.6",
+    "pg": "^8.13.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "socket.io": "^4.8.1",
@@ -30,6 +31,7 @@
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
     "@types/node": "^20",
+    "@types/pg": "^8.11.11",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "postcss": "^8",
